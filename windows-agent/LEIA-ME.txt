@@ -1,0 +1,44 @@
+ADM Kiosk - Agente para computadores / netboxes Windows (32 bits)
+Aeroportos de Moçambique, E.P. - Desenvolvido por Harmonico Lucas
+=================================================================
+
+Abra Instalar.exe. É este o ficheiro da instalação, do Windows XP SP3
+ao Windows 11, em computadores de 32 bits e de 64 bits.
+
+O erro "The application failed to initialize properly (0xc0000135)"
+aparece quando o agente é aberto sem o .NET Framework 4. O Instalar.exe
+não depende desse componente: se ele faltar, instala o pacote que vem
+na pasta pacotes e só depois abre o agente.
+
+O que a instalação faz
+  - No Windows XP sem Service Pack 3 instala o .NET Framework 3.5
+    (pacotes\dotNetFx35.exe), que funciona nessa versão.
+  - No XP com Service Pack 3, e no Windows mais recente, instala o
+    .NET Framework 4 se ainda não existir.
+  - Copia o pacote para C:\ADM-Kiosk-Setup e instala-o a partir do disco
+    local. Na pen, a extração falha com "Unspecified error".
+  - Se a memória virtual estiver baixa, aumenta-a e pede para reiniciar.
+    Depois abra outra vez o Instalar.exe.
+  - Copia o agente para C:\ADM-Kiosk-Agent.
+  - Põe o agente a arrancar com o Windows neste utilizador.
+  - Abre a janela do agente.
+
+Na janela, indique o servidor (ex.: 192.168.1.10:8080; vazio = descoberta
+na rede) e a página (ex.: http://192.168.1.20/fids).
+
+Sair do modo kiosk
+  Prima Ctrl+X e, em seguida, S (em menos de 2,5 segundos).
+  O navegador fecha e a janela do agente abre-se no ambiente de trabalho.
+
+Pacotes incluídos (não precisa de Internet no computador antigo)
+  pacotes\dotNetFx35.exe
+  .NET Framework 3.5 para Windows XP sem Service Pack 3.
+  pacotes\dotNetFx40_Full_x86_x64.exe
+  .NET Framework 4 para Windows XP SP3, Vista, 7 e 8.
+  No Windows 10 e 11 o .NET 4 já vem instalado e este passo é saltado.
+
+Mantenha juntas as pastas programa e pacotes e o ficheiro Instalar.exe.
+Não abra programa\ADM-Kiosk-Agente.exe antes do Instalar.exe.
+
+Fechar a janela no X apenas a minimiza. "Terminar agente" encerra o programa.
+Registo: C:\ADM-Kiosk-Agent\agent.log

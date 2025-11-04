@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Aeroportos de Moçambique, E.P.</string>
+    <string name="adm_name">Aeroportos de Moçambique, E.P.</string>
+    <string name="adm_short">Aeroportos de Moçambique, E.P.</string>
+    <string name="adm_tagline">Sistema de Informação ao Público</string>
+
+    <!-- Device admin -->
+    <string name="device_admin_label">Kiosk TV Device Owner</string>
+    <string name="device_admin_description">Permite o modo Kiosk (Lock Task), controlo de arranque e bloqueio de saída para apresentação digital signage.</string>
+
+    <!-- Admin UI -->
+    <string name="admin_title">Administração — Kiosk TV</string>
+    <string name="enter_pin">Introduza o código de acesso</string>
+    <string name="wrong_pin">Código incorreto</string>
+    <string name="too_many_attempts">Demasiadas tentativas. Aguarde.</string>
+
+    <!-- Categories (Tipo de página) -->
+    <string-array name="page_types">
+        <item>Partidas Nacionais</item>
+        <item>Partidas Internacionais</item>
+        <item>Chegadas Nacionais</item>
+        <item>Chegadas Internacionais</item>
+    </string-array>
+</resources>

@@ -1,0 +1,60 @@
+ADM Kiosk - Servidor de administração para Windows
+Aeroportos de Moçambique, E.P. - Desenvolvido por Harmonico Lucas
+=================================================================
+
+Não é preciso instalar o Python: está tudo dentro de ADM-Kiosk-Servidor-Setup.exe.
+
+1. Instalar
+   a) Copie ADM-Kiosk-Servidor-Setup.exe para o computador que vai ser o
+      servidor (sempre ligado, na mesma rede dos ecrãs).
+   b) Faça duplo clique em ADM-Kiosk-Servidor-Setup.exe. Abre-se a janela
+      "ADM Kiosk Servidor". Em "Porta do painel" o programa sugere uma porta
+      livre (a 8080, se estiver livre). Pode escrever outra ou carregar numa
+      das portas livres. Depois clique em "Instalar" e aceite o pedido de
+      administrador do Windows.
+   c) O instalador:
+      - copia o programa para C:\Program Files\ADM Kiosk Servidor
+      - guarda os dados em C:\ProgramData\ADM Kiosk Servidor\data
+      - abre na firewall a porta TCP escolhida e a UDP 47800
+      - configura o arranque automático com o Windows (corre mesmo sem
+        ninguém iniciar sessão)
+      - cria o atalho "ADM Kiosk Servidor" no ambiente de trabalho e no menu
+        Iniciar
+      - no fim, pergunta se quer abrir o painel no navegador
+   d) Palavra-passe inicial: admin (altere-a no painel, em Definições).
+
+   Se o Windows mostrar "O Windows protegeu o computador" (SmartScreen),
+   clique em "Mais informações" > "Executar mesmo assim".
+
+2. Utilizar
+   Clique no atalho "ADM Kiosk Servidor" (ambiente de trabalho ou menu
+   Iniciar). A janela mostra:
+   - o estado do servidor (a funcionar / parado) e os botões "Abrir painel de
+     administração", "Iniciar servidor" / "Parar servidor", "Reinstalar /
+     atualizar" e "Desinstalar";
+   - "Endereços do painel": clique num endereço para abrir o painel de
+     administração no navegador (se o servidor estiver parado, é iniciado
+     primeiro). Clique com o botão direito para copiar o endereço - use-o
+     também para configurar os ecrãs;
+   - "Atividade": o que o programa está a fazer.
+   Fechar a janela não para o servidor instalado.
+
+   Sem instalar: na janela, "Executar sem instalar" corre o servidor apenas
+   enquanto a janela estiver aberta (dados na pasta "data" ao lado do .exe).
+
+3. Passar do servidor antigo (pasta Servidor-Admin com Python)
+   a) Feche a janela do servidor antigo (iniciar-servidor.bat).
+   b) Copie ADM-Kiosk-Servidor-Setup.exe para dentro da pasta Servidor-Admin
+      (ao lado da pasta "data") e instale a partir daí: os equipamentos, as
+      configurações e a palavra-passe são copiados automaticamente.
+
+4. Atualizar
+   Execute a nova versão do ADM-Kiosk-Servidor-Setup.exe e clique em
+   "Reinstalar / atualizar". Os dados são mantidos.
+
+5. Desinstalar
+   Na janela, clique em "Desinstalar", ou em Definições > Aplicações >
+   "ADM Kiosk - Servidor de administração". A desinstalação pergunta se apaga
+   também os dados.
+
+Cópia de segurança: guarde a pasta C:\ProgramData\ADM Kiosk Servidor\data.

@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ADM Kiosk - Administração de Ecrãs</title>
+  <link rel="icon" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Ícones (reutilizados com <use>) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10"/></symbol>
+  <symbol id="i-screens" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="12" rx="1.5"/><path d="M8.5 20h7M12 16.5V20"/></symbol>
+  <symbol id="i-wall" viewBox="0 0 24 24"><rect x="3.5" y="4" width="7.5" height="7" rx="1"/><rect x="13" y="4" width="7.5" height="7" rx="1"/><rect x="3.5" y="13" width="7.5" height="7" rx="1"/><rect x="13" y="13" width="7.5" height="7" rx="1"/></symbol>
+  <symbol id="i-pages" viewBox="0 0 24 24"><path d="M7 3.5h7l4 4V20.5H7z"/><path d="M14 3.5v4h4M9.5 12h6M9.5 15.5h6"/></symbol>
+  <symbol id="i-events" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M5.3 18.7l2.1-2.1M16.6 7.4l2.1-2.1"/></symbol>
+  <symbol id="i-logout" viewBox="0 0 24 24"><path d="M14 4.5H5.5v15H14M10 12h10M16.5 8.5 20 12l-3.5 3.5"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.5 10.5 12 15l4.5-4.5M5 19.5h14"/></symbol>
+  <symbol id="i-reload" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v4.5H15"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.5 7h15M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13M10.5 11v5.5M13.5 11v5.5"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M4 8h3l1.5-2.5h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+</svg>
+
+<!-- ============ Início de sessão ============ -->
+<section id="login-view" class="login hidden">
+  <div class="login-bg" aria-hidden="true"></div>
+  <form id="login-form" class="login-card">
+    <img src="logo.png" alt="Aeroportos de Moçambique" class="login-logo">
+    <h1>Administração de Ecrãs</h1>
+    <p class="muted">Aeroportos de Moçambique, E.P.</p>
+    <label for="login-password">Palavra-passe</label>
+    <input type="password" id="login-password" autocomplete="current-password" required autofocus
+           placeholder="Introduza a palavra-passe">
+    <p id="login-error" class="error"></p>
+    <button type="submit" class="btn primary wide">Entrar</button>
+    <p class="brand-foot">Desenvolvido por <b>Harmonico Lucas</b></p>
+  </form>
+</section>
+
+<!-- ============ Aplicação ============ -->
+<section id="app-view" class="app hidden">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="logo.png" alt="ADM">
+      <div>
+        <strong>ADM Kiosk</strong>
+        <span>Gestão de ecrãs</span>
+      </div>
+    </div>
+    <nav id="tabs">
+      <p class="nav-group">Monitorização</p>
+      <button data-tab="overview" class="active"><svg><use href="#i-home"/></svg>Visão geral</button>
+      <button data-tab="devices"><svg><use href="#i-screens"/></svg>Equipamentos <span class="nav-count" id="nav-count"></span></button>
+      <button data-tab="wall"><svg><use href="#i-wall"/></svg>Mural de ecrãs</button>
+      <p class="nav-group">Configuração</p>
+      <button data-tab="profiles"><svg><use href="#i-pages"/></svg>Páginas por tipo de ecrã</button>
+      <p class="nav-group">Sistema</p>
+      <button data-tab="events"><svg><use href="#i-events"/></svg>Registo de eventos</button>
+      <button data-tab="settings"><svg><use href="#i-settings"/></svg>Definições</button>
+    </nav>
+    <div class="sidebar-foot">
+      <button id="logout-btn" class="nav-btn"><svg><use href="#i-logout"/></svg>Terminar sessão</button>
+      <small>Desenvolvido por <b>Harmonico Lucas</b></small>
+    </div>
+  </aside>
+
+  <main>
+    <!-- ---------- Visão geral ---------- -->
+    <section id="tab-overview" class="tab">
+      <header class="page-head">
+        <h1>Visão geral</h1>
+        <div class="head-actions">
+          <button class="btn" data-reload-all><svg><use href="#i-reload"/></svg>Recarregar todos</button>
+          <time class="clock" id="clock"></time>
+        </div>
+      </header>
+      <div class="stats" id="summary"></div>
+      <div class="ov-grid">
+        <section class="block">
+          <div class="block-head"><h2>Ocorrências</h2><span class="muted small" id="attention-count"></span></div>
+          <table class="grid compact">
+            <thead><tr><th>Estado</th><th>Equipamento</th><th>Endereço IP</th><th>Último contacto</th></tr></thead>
+            <tbody id="attention"></tbody>
+          </table>
+        </section>
+        <section class="block">
+          <div class="block-head"><h2>Ecrãs por terminal</h2><span class="muted small">online / total</span></div>
+          <div id="distribution"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ---------- Equipamentos ---------- -->
+    <section id="tab-devices" class="tab hidden">
+      <header class="page-head">
+        <div>
+          <h1>Equipamentos</h1>
+          <p>Smart TVs, netboxes e computadores registados. Clique numa linha para ver os detalhes.</p>
+        </div>
+        <div class="head-actions">
+          <button class="btn" data-reload-all><svg><use href="#i-reload"/></svg>Recarregar todos</button>
+          <a class="btn" href="/api/export.csv"><svg><use href="#i-download"/></svg>Exportar inventário</a>
+        </div>
+      </header>
+
+      <div class="filters">
+        <label class="search"><svg><use href="#i-search"/></svg>
+          <input type="search" id="filter-text" placeholder="Pesquisar por nome, IP, MAC ou modelo"></label>
+        <select id="filter-platform" aria-label="Tipo de equipamento">
+          <option value="">Todos os equipamentos</option>
+          <option value="android">Smart TVs (Android)</option>
+          <option value="pc">Computadores / netboxes</option>
+          <option value="windows">Só Windows</option>
+          <option value="linux">Só Linux</option>
+        </select>
+        <select id="filter-terminal" aria-label="Terminal">
+          <option value="">Todos os terminais</option>
+          <option value="DPT">DPT - Doméstico</option>
+          <option value="IPT">IPT - Internacional</option>
+          <option value="-">Sem classificação</option>
+        </select>
+        <select id="filter-type" aria-label="Tipo de ecrã">
+          <option value="">Todos os tipos de ecrã</option>
+          <option value="FIDS_DEP">FIDS Partidas</option>
+          <option value="FIDS_ARR">FIDS Chegadas</option>
+          <option value="GATE">Gate</option>
+          <option value="-">Sem tipo</option>
+        </select>
+        <select id="filter-state" aria-label="Estado">
+          <option value="">Todos os estados</option>
+          <option value="online">Online</option>
+          <option value="offline">Offline</option>
+          <option value="error">Com erro na página</option>
+          <option value="pending">Configuração pendente</option>
+        </select>
+      </div>
+
+      <div class="bulkbar hidden" id="bulkbar">
+        <span id="bulk-count"></span>
+        <button class="btn small" data-bulk="reload">Recarregar</button>
+        <button class="btn small" data-bulk="identify">Identificar</button>
+        <button class="btn small" data-bulk="screenshot">Captura</button>
+        <button class="btn small" data-bulk="clear_cache">Limpar cache</button>
+        <button class="btn small" data-bulk="restart_app">Reiniciar aplicação</button>
+        <button class="btn small danger" data-bulk="reboot">Forçar reinício</button>
+        <span class="spacer"></span>
+        <button class="btn small primary" id="bulk-config-btn">Configurar selecionados</button>
+        <button class="btn small danger" id="bulk-remove">Remover selecionados</button>
+        <button class="btn small ghost" id="bulk-clear">Limpar seleção</button>
+      </div>
+
+      <div class="table-wrap">
+        <table class="grid" id="devices-table">
+          <thead>
+            <tr>
+              <th class="w-check"><input type="checkbox" id="select-all" aria-label="Selecionar todos"></th>
+              <th>Equipamento</th>
+              <th>Classificação</th>
+              <th>Rede</th>
+              <th>Página</th>
+              <th>Última comunicação</th>
+              <th class="w-actions"></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <div class="empty hidden" id="devices-empty">
+          <svg><use href="#i-screens"/></svg>
+          <h3>Nenhum equipamento encontrado</h3>
+          <p>As smart TVs com o ADM Kiosk e os computadores com o agente ADM Kiosk aparecem aqui
+            automaticamente quando são ligados na mesma rede. Verifique também os filtros.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Mural ---------- -->
+    <section id="tab-wall" class="tab hidden">
+      <header class="page-head">
+        <div>
+          <h1>Mural de ecrãs</h1>
+          <p>A imagem atual de cada ecrã. Clique num ecrã para o ver ao vivo e controlar.</p>
+        </div>
+        <div class="head-actions">
+          <label class="check-inline"><input type="checkbox" id="wall-auto" checked> Atualizar a cada 60 s</label>
+          <button class="btn primary" id="wall-refresh"><svg><use href="#i-camera"/></svg>Capturar todos agora</button>
+        </div>
+      </header>
+      <div class="wall" id="wall"></div>
+    </section>
+
+    <!-- ---------- Páginas por tipo de ecrã ---------- -->
+    <section id="tab-profiles" class="tab hidden">
+      <header class="page-head">
+        <div>
+          <h1>Páginas por tipo de ecrã</h1>
+          <p>Defina uma vez a página de cada tipo de ecrã; todos os equipamentos com essa classificação passam a abri-la.</p>
+        </div>
+      </header>
+      <div class="panel">
+        <p class="muted">Os equipamentos com um URL próprio mantêm o seu. Use <code>{gate}</code> para inserir o
+          número da gate do ecrã (ex.: <code>http://fids.adm.co.mz/gate/{gate}</code>).</p>
+        <div id="profiles-grid" class="profiles"></div>
+        <div class="actions">
+          <button class="btn primary" id="profiles-save">Guardar e enviar aos equipamentos</button>
+          <span id="profiles-msg" class="muted"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- Eventos ---------- -->
+    <section id="tab-events" class="tab hidden">
+      <header class="page-head">
+        <div>
+          <h1>Registo de eventos</h1>
+          <p>Registos de equipamentos, alterações de configuração, comandos e sessões ao vivo.</p>
+        </div>
+      </header>
+      <div class="table-wrap">
+        <table class="grid">
+          <thead><tr><th>Data / hora</th><th>Equipamento</th><th>Evento</th></tr></thead>
+          <tbody id="events-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ---------- Definições ---------- -->
+    <section id="tab-settings" class="tab hidden">
+      <header class="page-head">
+        <div>
+          <h1>Definições</h1>
+          <p>Endereço do servidor, inventário e segurança.</p>
+        </div>
+      </header>
+      <div class="grid-2">
+        <div class="panel">
+          <div class="panel-head"><h2>Endereço do servidor</h2></div>
+          <p>Use um destes endereços para abrir o painel ou para configurar os equipamentos:</p>
+          <ul id="server-addresses" class="addresses"></ul>
+          <p class="muted">Os equipamentos encontram este servidor sozinhos na rede (UDP
+            <span id="discovery-port"></span>). Se a rede bloquear a descoberta, indique um destes endereços
+            na TV (Definições &gt; Gestão remota &gt; Servidor) ou no agent.json do computador.</p>
+          <form id="net-form" class="form narrow">
+            <label>Endereço anunciado aos equipamentos
+              <select name="mode" id="net-mode"></select></label>
+            <label id="net-custom-wrap" class="hidden">Endereço personalizado
+              <small>IP, nome (ex.: adm-kiosk.aeroporto.co.mz) ou URL completo</small>
+              <input name="custom" maxlength="200" placeholder="ex.: 192.168.1.7 ou http://servidor:8080"></label>
+            <label>Porta principal do painel (TCP)
+              <small>uma porta nova é acrescentada; as anteriores continuam ativas</small>
+              <input name="port" type="number" min="1" max="65535" required></label>
+            <label class="check"><input type="checkbox" name="discovery"> <div>Descoberta automática na rede
+              (UDP <b class="discovery-port"></b>)</div></label>
+            <p class="muted small" id="net-hint"></p>
+            <p class="error" id="net-error"></p>
+            <div><button class="btn primary" type="submit">Guardar endereço</button></div>
+          </form>
+          <a class="btn" href="/api/export.csv"><svg><use href="#i-download"/></svg>Exportar inventário (CSV / Excel)</a>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h2>Palavra-passe do administrador</h2></div>
+          <p class="notice hidden" id="password-notice">Ainda está a ser usada a palavra-passe inicial. Recomenda-se alterá-la.</p>
+          <form id="password-form" class="form narrow">
+            <label>Palavra-passe atual <input type="password" name="current" required></label>
+            <label>Nova palavra-passe <small>mínimo 6 caracteres</small><input type="password" name="new" minlength="6" required></label>
+            <label>Confirmar nova palavra-passe <input type="password" name="confirm" minlength="6" required></label>
+            <p class="error" id="password-error"></p>
+            <div><button class="btn primary" type="submit">Alterar palavra-passe</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+</section>
+
+<!-- ============ Janela modal ============ -->
+<div id="modal" class="modal hidden">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close" aria-label="Fechar">&times;</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- ============ Sessão ao vivo ============ -->
+<div id="live" class="live hidden">
+  <div class="live-bar">
+    <div class="live-title">
+      <strong id="live-title"></strong>
+      <span id="live-status"></span>
+    </div>
+    <div class="live-group">
+      <label class="check-inline"><input type="checkbox" id="live-control" checked> Controlar</label>
+      <select id="live-speed" title="Imagens por segundo">
+        <option value="66">15 imagens/s</option>
+        <option value="100" selected>10 imagens/s</option>
+        <option value="200">5 imagens/s</option>
+        <option value="1000">Rede lenta (1/s)</option>
+      </select>
+      <select id="live-quality" title="Qualidade da imagem">
+        <option value="high">Alta qualidade</option>
+        <option value="normal" selected>Qualidade normal</option>
+        <option value="low">Baixa (rede lenta)</option>
+      </select>
+    </div>
+    <div class="live-group">
+      <button class="btn small dark" data-key="Back" data-only="android" title="Botão Voltar da Smart TV ou do smartphone (2× abre a administração)">Voltar</button>
+      <button class="btn small dark" data-key="Escape" data-only="pc">Esc</button>
+      <button class="btn small dark" data-key="Enter">Enter</button>
+      <button class="btn small dark" data-key="F5">F5</button>
+      <button class="btn small dark" data-key="Meta" data-only="pc">Windows</button>
+      <button class="btn small dark" data-key="F4" data-alt="1" data-only="pc">Alt+F4</button>
+      <input id="live-text" placeholder="Escrever texto e Enter…">
+    </div>
+    <div class="live-group end">
+      <button class="btn small dark" id="live-full">Ecrã inteiro</button>
+      <button class="btn small danger" id="live-close">Terminar sessão</button>
+    </div>
+  </div>
+  <div class="live-stage" id="live-stage" tabindex="0">
+    <img id="live-img" alt="Ecrã remoto" draggable="false">
+    <div class="live-wait" id="live-wait">A ligar ao equipamento…</div>
+  </div>
+</div>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="app.js"></script>
+</body>
+</html>

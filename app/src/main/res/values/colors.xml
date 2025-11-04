@@ -1,0 +1,24 @@
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Aeroportos de Moçambique, E.P. — cores oficiais da marca -->
+    <color name="adm_yellow">#FFEFE21A</color>       <!-- amarelo ADM (fundo do logótipo) -->
+    <color name="adm_yellow_dark">#FFC9BD10</color>  <!-- amarelo pressionado -->
+    <color name="adm_black">#FF111111</color>        <!-- preto do logótipo -->
+    <color name="adm_dark">#FF0E0E0E</color>         <!-- fundo escuro do conteúdo -->
+    <color name="adm_surface">#FF1C1C1A</color>      <!-- painéis / cartões -->
+    <color name="adm_surface_hi">#FF2A2A26</color>
+    <color name="adm_text">#FFF7F7EF</color>
+    <color name="adm_text_dim">#FFBEBEA8</color>
+    <color name="adm_green">#FF00844B</color>
+    <color name="adm_red">#FFD21034</color>
+
+    <color name="adm_offwhite">#FFF7F7F2</color>
+
+    <!-- Aliases legados -->
+    <color name="kiosk_bg">@color/adm_offwhite</color>
+    <color name="kiosk_primary">@color/adm_yellow</color>
+    <color name="kiosk_secondary">@color/adm_yellow</color>
+    <color name="ic_launcher_background">@color/adm_yellow</color>
+</resources>

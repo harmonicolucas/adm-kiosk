@@ -1,0 +1,47 @@
+ADM Kiosk - Agente para computadores / netboxes Linux
+Aeroportos de Moçambique, E.P. - Desenvolvido por Harmonico Lucas
+=============================================================
+
+O agente abre a página em ecrã inteiro, liga-se ao servidor de administração
+na mesma rede (não precisa de Internet) e mostra uma janela de controlo.
+
+Sair do modo kiosk
+  Prima Ctrl+X e, em seguida, S.
+  O navegador fecha e a janela do agente fica aberta no ambiente de trabalho.
+  "Entrar no modo kiosk" volta a abrir a página.
+
+Instalação com janela (recomendado, também sem Internet)
+  Abra Instalar.desktop (no Ubuntu: botão direito, "Permitir execução",
+  e depois duplo clique). A janela pede a senha de administrador, instala os
+  pacotes incluídos (python3-tk, ffmpeg e xdotool) e o agente.
+  Em alternativa, num terminal dentro desta pasta:
+  sudo python3 instalar-ui.py
+
+Instalação com o pacote .deb
+  sudo dpkg -i adm-kiosk-agente_2.6.0_all.deb
+  O pacote traz o python3-tk e os outros programas. Não é preciso
+  "apt-get install -f" nem Internet. Se o instalador gráfico disser que
+  falta o python3-tk, use a janela Instalar.desktop em vez do .deb antigo.
+
+Instalação a partir do terminal
+  sudo sh instalar.sh
+  (ou: sudo sh instalar.sh http://IP-DO-SERVIDOR:8080 http://pagina)
+
+Rede local, sem Internet
+  O agente, a descoberta, os comandos, a captura de ecrã e o controlo remoto
+  usam só a rede local. A página tem de estar nessa rede (um IP ou um nome
+  que o DNS local resolva). O navegador não usa proxy de sistema.
+
+Atalho e janela
+  Ctrl+X, depois S, em menos de 2,5 segundos.
+  Fechar a janela no X apenas a minimiza. "Terminar agente" encerra o programa.
+
+Requisitos
+  Ubuntu 24.04 de 64 bits (os pacotes .deb incluídos são amd64).
+  O Python 3 já vem no Ubuntu. O python3-tk, o ffmpeg e o xdotool vêm
+  na pasta pacotes e são instalados pela janela, sem Internet.
+
+Ficheiros
+  /opt/adm-kiosk-agent/adm-agent.py
+  /opt/adm-kiosk-agent/agent.json    servidor e página locais
+  /opt/adm-kiosk-agent/agent.log

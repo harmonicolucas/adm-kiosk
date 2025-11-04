@@ -1,0 +1,42 @@
+ADM Kiosk - Servidor de administração para Linux
+Aeroportos de Moçambique, E.P. - Desenvolvido por Harmonico Lucas
+=================================================
+
+Funciona em Ubuntu, Debian, Linux Mint, Fedora, RHEL/Rocky/AlmaLinux,
+openSUSE e Arch (sistemas com systemd). Usa o Python 3 do sistema (instalado
+automaticamente se faltar).
+
+1. Instalar
+   a) Copie esta pasta (Servidor-Admin-Linux) para o computador servidor.
+   b) Abra um terminal dentro da pasta e execute:
+         sudo sh instalar-servidor.sh
+      O instalador mostra as portas livres e sugere uma (a 8080, se estiver
+      livre). Carregue em Enter para aceitar, ou escreva outra porta.
+      Para indicar a porta logo no comando:
+         sudo sh instalar-servidor.sh 8081
+   c) O instalador:
+      - copia o programa para /opt/adm-kiosk-servidor
+      - guarda os dados em /var/lib/adm-kiosk-servidor
+      - cria o serviço "adm-kiosk-servidor", que arranca sozinho com o sistema
+        e é reiniciado se falhar (corre com o utilizador "admkiosk", sem
+        privilégios de administrador)
+      - abre a porta TCP escolhida e a 47800/udp na firewall (ufw ou firewalld),
+        se estiver ativa
+      - mostra os endereços do painel (ex.: http://192.168.1.20:8080)
+   d) Palavra-passe inicial: admin (altere-a no painel, em Definições).
+
+2. Passar dados de outro servidor
+   Copie a pasta "data" do servidor antigo para dentro desta pasta (ao lado
+   de instalar-servidor.sh) antes de instalar.
+
+3. Atualizar
+   Execute de novo "sudo sh instalar-servidor.sh" com a nova versão dos
+   ficheiros. Os dados são mantidos.
+
+4. Comandos úteis
+   Estado:      sudo systemctl status adm-kiosk-servidor
+   Reiniciar:   sudo systemctl restart adm-kiosk-servidor
+   Registo:     sudo journalctl -u adm-kiosk-servidor -f
+   Desinstalar: sudo sh /opt/adm-kiosk-servidor/desinstalar-servidor.sh
+
+Cópia de segurança: guarde a pasta /var/lib/adm-kiosk-servidor.

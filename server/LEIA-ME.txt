@@ -1,0 +1,66 @@
+ADM Kiosk - Servidor de administração remota
+Aeroportos de Moçambique, E.P. - Desenvolvido por Harmonico Lucas
+=============================================================
+
+1. Requisitos
+   - Um computador ou servidor Windows ligado à mesma rede dos televisores,
+     sempre ligado.
+   - Python 3.8 ou superior (https://www.python.org/downloads/), com a opção
+     "Add python.exe to PATH" marcada. Não é preciso instalar mais nada.
+
+2. Primeira instalação
+   a) Copiar esta pasta para o computador (ex.: C:\ADM-Kiosk-Admin).
+   b) Botão direito em "configurar-firewall.bat" > Executar como administrador
+      (abre as portas TCP 8080 e UDP 47800).
+   c) Executar "iniciar-servidor.bat". A janela mostra o endereço da
+      administração web (ex.: http://10.10.5.10:8080).
+   d) Abrir esse endereço num navegador. Palavra-passe inicial: admin
+      (altere-a no painel, em Definições).
+
+3. Equipamentos
+   - Smart TVs / boxes Android: instalar o ADM Kiosk 2.3 (ou superior).
+   - Computadores / netboxes Windows: instalar o agente (pasta "Agente-Windows",
+     ver o respetivo LEIA-ME.txt).
+   - Computadores / netboxes Linux: instalar o agente (pasta "Agente-Linux":
+     sudo sh instalar.sh, ver o respetivo LEIA-ME.txt).
+   - Ao ligar, cada equipamento encontra o servidor sozinho e aparece na lista
+     "Equipamentos" com IP, máscara, gateway, DNS, MAC e modelo.
+   - Se a rede bloquear a descoberta automática: na TV, MENU > Definições >
+     Gestão remota > Servidor; no computador, editar serverUrl no agent.json.
+
+4. Utilização
+   - Classificar cada televisor: terminal (DPT Doméstico / IPT Internacional),
+     tipo de ecrã (FIDS Partidas, FIDS Chegadas, Gate) e número da gate.
+   - "Páginas por tipo de ecrã": definir uma vez o URL de cada tipo; todos os
+     televisores desse tipo passam a abrir essa página. {gate} é substituído
+     pelo número da gate do televisor.
+   - "Identificar" mostra o nome e o IP no próprio ecrã durante 20 segundos.
+   - Definições > Endereço do servidor: escolher o endereço anunciado aos
+     equipamentos (automático, um dos IPs do servidor ou um nome/URL), mudar a
+     porta do painel (aplicada de imediato, sem reiniciar) e ligar/desligar a
+     descoberta automática na rede.
+   - "Mural de ecrãs" mostra a imagem atual de todos os equipamentos.
+   - "Ao vivo" abre o ecrã do equipamento em tempo real, como no AnyDesk: a
+     imagem chega em fluxo contínuo (5 a 15 imagens por segundo, à escolha) e
+     a qualidade pode ser alta, normal ou baixa (rede lenta). Só são enviadas
+     as imagens que mudaram. "Ecrã inteiro" ocupa todo o monitor.
+     Com "Controlar" ativo, o rato acompanha o cursor e é possível clicar,
+     arrastar (premir, mover, largar), duplo clique, botão direito, roda do
+     rato, teclado e texto. No computador controla todo o Windows ou Linux; na
+     smart TV controla a página apresentada pelo ADM Kiosk.
+   - Se a imagem não chegar, a janela "Ao vivo" explica o motivo: equipamento
+     offline, versão antiga sem ao vivo, TV fora do ecrã ADM Kiosk (é reaberto
+     automaticamente) ou equipamento que não respondeu.
+   - A sessão ao vivo, os comandos e as alterações chegam aos equipamentos de
+     imediato (cerca de 1 segundo), sem esperar pelo contacto periódico.
+   - Equipamentos com versões anteriores continuam a funcionar, mas: o
+     launcher 2.0 não tem ao vivo; o launcher 2.1 e o agente Windows 2.0 são
+     lentos e não permitem arrastar. Atualize-os para a versão 2.3.
+
+5. Instalação com arranque automático (recomendado)
+   - Windows: pasta "Servidor-Admin-Windows" > ADM-Kiosk-Servidor.exe > opção
+     "1 - Instalar" (não precisa de Python; ver o respetivo LEIA-ME.txt).
+   - Linux: pasta "Servidor-Admin-Linux" > sudo sh instalar-servidor.sh.
+
+Dados: a pasta "data" guarda a base de dados e as capturas de ecrã. Faça
+cópia de segurança desta pasta.

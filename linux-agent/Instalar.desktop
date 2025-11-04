@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Instalar ADM Kiosk
+Comment=Instala o agente de ecrãs com os pacotes incluídos
+Exec=sh -c 'cd "$(dirname "$1")" && exec python3 instalar-ui.py' dummy %k
+Terminal=false
+Categories=System;
+StartupNotify=true
